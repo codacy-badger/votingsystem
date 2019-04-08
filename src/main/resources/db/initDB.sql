@@ -35,7 +35,6 @@ CREATE TABLE restaurant
 
 CREATE TABLE votings
 (
-    id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     user_id       INTEGER                           NOT NULL,
     restaurant_id INTEGER                           NOT NULL,
     date_voting   TIMESTAMP           DEFAULT now() NOT NULL,
