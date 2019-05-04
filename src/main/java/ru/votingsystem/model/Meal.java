@@ -18,6 +18,8 @@ public class Meal extends AbstractNamedEntity{
     @NotNull
     private Integer price;
 
+    public Meal(){}
+
     public Meal(Integer id, String name, Integer price) {
         super(id, name);
         this.price = price;

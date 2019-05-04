@@ -20,9 +20,10 @@ public class Restaurant extends AbstractNamedEntity {
     private String address;
 
     @CollectionTable(name = "meals", joinColumns = @JoinColumn(name = "restaurant_id"))
-    @Column(name = "meals")
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Meal> menu;
+
+    public Restaurant(){}
 
     public Restaurant(Integer id, String name, String address, Set<Meal> menu) {
         super(id, name);
