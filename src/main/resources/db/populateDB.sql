@@ -24,6 +24,6 @@ VALUES ('Завтрак', 500, 100003),
        ('Обед', 1000, 100002),
        ('Ужин', 510, 100002);
 
-INSERT INTO votings (user_id, restaurant_id) VALUES
+INSERT INTO votes (user_id, restaurant_id) VALUES
 (100000, 100003),
 (100001, 100002);
