@@ -1,16 +1,32 @@
 package ru.votingsystem.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-public class Vote {
+@Entity
+@Table(name = "votes")
+public class Vote extends AbstractBaseEntity{
+
+    @Column(name = "user_id")
+    @NotNull
     private Integer userId;
+
+    @Column(name = "restaurant_id")
+    @NotNull
     private Integer restaurantId;
+
+    @Column(name = "date_vote")
+    @NotNull
     private LocalDateTime dateVoting;
 
     public Vote() {
     }
 
-    public Vote(Integer userId, Integer restaurantId, LocalDateTime dateVoting) {
+    public Vote(Integer id, Integer userId, Integer restaurantId, LocalDateTime dateVoting) {
+        super(id);
         this.userId = userId;
         this.restaurantId = restaurantId;
         this.dateVoting = dateVoting;
@@ -46,6 +62,7 @@ public class Vote {
                 "userId=" + userId +
                 ", restaurantId=" + restaurantId +
                 ", dateVoting=" + dateVoting +
+                ", id=" + id +
                 '}';
     }
 }

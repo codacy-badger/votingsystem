@@ -2,6 +2,7 @@ package ru.votingsystem.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @NamedQueries({
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id"),
@@ -18,11 +19,15 @@ public class Meal extends AbstractNamedEntity{
     @NotNull
     private Integer price;
 
+    @Column(name = "date_lunch")
+    private LocalDateTime dateTime;
+
     public Meal(){}
 
-    public Meal(Integer id, String name, Integer price) {
+    public Meal(Integer id, String name, Integer price, LocalDateTime dateTime) {
         super(id, name);
         this.price = price;
+        this.dateTime = dateTime;
     }
 
     public Integer getPrice() {
@@ -33,10 +38,19 @@ public class Meal extends AbstractNamedEntity{
         this.price = price;
     }
 
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public String toString() {
         return "Meal{" +
                 "price=" + price +
+                ", dateTime=" + dateTime +
                 ", name='" + name + '\'' +
                 ", id=" + id +
                 '}';

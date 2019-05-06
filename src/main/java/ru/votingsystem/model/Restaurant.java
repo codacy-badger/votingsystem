@@ -2,7 +2,6 @@ package ru.votingsystem.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r where r.id=:id"),
@@ -19,16 +18,11 @@ public class Restaurant extends AbstractNamedEntity {
     @NotNull
     private String address;
 
-    @CollectionTable(name = "meals", joinColumns = @JoinColumn(name = "restaurant_id"))
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Meal> menu;
-
     public Restaurant(){}
 
-    public Restaurant(Integer id, String name, String address, Set<Meal> menu) {
+    public Restaurant(Integer id, String name, String address) {
         super(id, name);
         this.address = address;
-        this.menu = menu;
     }
 
     public String getAddress() {
@@ -39,19 +33,10 @@ public class Restaurant extends AbstractNamedEntity {
         this.address = address;
     }
 
-    public Set<Meal> getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Set<Meal> menu) {
-        this.menu = menu;
-    }
-
     @Override
     public String toString() {
         return "Restaurant{" +
                 "address='" + address + '\'' +
-                ", menu=" + menu +
                 ", name='" + name + '\'' +
                 ", id=" + id +
                 '}';
