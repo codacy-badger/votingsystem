@@ -5,7 +5,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.EnumSet;
 import java.util.Set;
 
 @NamedQueries({
@@ -37,7 +38,7 @@ public class User extends AbstractNamedEntity {
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     @NotNull
-    private LocalDateTime registered;
+    private Date registered;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -45,15 +46,24 @@ public class User extends AbstractNamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public User(){}
+    public User() {
+    }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, LocalDateTime registered, Set<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Set<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
         this.enabled = enabled;
         this.registered = registered;
         this.roles = roles;
+    }
+
+    public User(User u) {
+        this(u.getId(), u.name, u.email, u.password, u.enabled, u.registered, u.roles);
+    }
+
+    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
+        this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
     }
 
     public String getEmail() {
@@ -80,11 +90,11 @@ public class User extends AbstractNamedEntity {
         this.enabled = enabled;
     }
 
-    public LocalDateTime getRegistered() {
+    public Date getRegistered() {
         return registered;
     }
 
-    public void setRegistered(LocalDateTime registered) {
+    public void setRegistered(Date registered) {
         this.registered = registered;
     }
 
@@ -95,6 +105,8 @@ public class User extends AbstractNamedEntity {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
 
     @Override
     public String toString() {

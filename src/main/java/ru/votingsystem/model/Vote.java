@@ -1,14 +1,19 @@
 package ru.votingsystem.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+@NamedQueries({
+        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id = :id")
+        //TODO Create named queries for getAllSorted()
+})
+
 @Entity
 @Table(name = "votes")
-public class Vote extends AbstractBaseEntity{
+public class Vote extends AbstractBaseEntity {
+    public static final String DELETE = "Vote.delete";
+    public static final String ALL_SORTED = "Vote.getAllSorted";
 
     @Column(name = "user_id")
     @NotNull
